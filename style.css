@@ -51,3 +51,7 @@ label {
 button {
 	padding: 0.25rem 1rem;
 }
+
+.hidden {
+	display: none;
+}

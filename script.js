@@ -35,9 +35,22 @@
 
 		return content
 	}
+	let url = new URL(document.location)
+
+	let urlpatch = url.searchParams.get('patch') 
+
+	if ( urlpatch ) {
+		document.querySelector('#patchfile').classList.add('hidden')
+		document.querySelector('.patchurl').textContent = urlpatch
+	}
 
 	document.querySelector('#patch').addEventListener('click', async (e) => {
-		let patch = await read_patch( [...document.querySelector('#patchfile').files][0] )
+		let patch
+		if ( urlpatch )  {
+			patch = await fetch( urlpatch ).then( r => r.json() )
+		} else { 
+			patch = await read_patch( [...document.querySelector('#patchfile').files][0] )
+		}
 		let rom = [...document.querySelector('#romfile').files][0]
 		let patchedrom = new Uint8Array( await new Response( rom ).arrayBuffer() )
 
@@ -56,4 +69,7 @@
 		}
 		output.readAsDataURL(new Blob( [ patchedrom ], { type: 'application/octet-stream' } ) )
 	})
+
+
+	debugger
 })()
