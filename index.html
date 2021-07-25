@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <title>Browser based ROM patcher</title>
+        <script type="module" src="script.js?v001"></script>
+        <link rel="stylesheet" href="style.css?v001">
+    </head>
+    <body>
+        <div class="simple-container">
+            <h1>Browser based ROM patcher</h1>
+            <p>
+                You can use this page to patch a rom with a supported patch file (IPS Patch or a specific JSON format).
+                
+            </p>
+            <div>
+                <label for="romfile">ROM: </label><input id="romfile" type="file">
+            </div>
+            <div>
+                <label for="patchfile">Patch: </label><input id="patchfile" type="file">
+            </div>
+            <div>
+                <button id="patch">Patch!</button><br>
+            </div>
+            <div>
+                <a href="" class="patchedrom"></a>
+            </div>
+
+        </div>
+    </body>
+</html>
