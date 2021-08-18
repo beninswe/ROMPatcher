@@ -47,7 +47,15 @@
 	document.querySelector('#patch').addEventListener('click', async (e) => {
 		let patch
 		if ( urlpatch )  {
-			patch = await fetch( urlpatch ).then( r => r.json() )
+			patch = await fetch( urlpatch ).then( async (r) => {
+				const contentType = r.headers.get("content-type")
+				if (contentType && contentType.indexOf("application/json") !== -1) {
+					return r.json()
+				  } else {
+					var patch = await r.arrayBuffer()
+					return await convert_ips_to_json( patch )
+				  }
+			} )
 		} else { 
 			patch = await read_patch( [...document.querySelector('#patchfile').files][0] )
 		}
@@ -69,7 +77,4 @@
 		}
 		output.readAsDataURL(new Blob( [ patchedrom ], { type: 'application/octet-stream' } ) )
 	})
-
-
-	debugger
 })()
